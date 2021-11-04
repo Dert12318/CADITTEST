@@ -6,20 +6,22 @@ import (
 	"CadItTest/repository"
 	"CadItTest/usecase"
 )
-var context *gin.Context
+
 type UsecaseSoal1Struct struct {
 	testRepo repository.TestRepoInterface
 	log      *log.LogCustom
 }
 
-func NewUsecaseImpl(TestRepo repository.TestRepoInterface, log *log.LogCustom) usecase.SoalUsecaseInterface {
-	return &UsecaseSoal1Struct{TestRepo, log}
+func NewUsecaseSoal1Impl(testRepo repository.TestRepoInterface, log *log.LogCustom) usecase.SoalUsecaseInterface {
+	return &UsecaseSoal1Struct{testRepo, log}
 }
 
-func (b UsecaseSoal1Struct) Soal1Func(input models.DataRequest, id, traceHeader map[string]string) (models.DataRequest, error) {
+func (b UsecaseSoal1Struct) Soal1Func(id string, traceHeader map[string]string) (models.DataRequest, error) {
 	url := "http://jsonplaceholder.typicode.com/users"
-	if (id==nil){
-		b.GetDataAllPartner(url, context, traceHeader,)
+	res, err := b.testRepo.GetDataAllPartner(url, traceHeader)
+	if err != nil {
+		b.log.Error(err, "usecase/Soal1: cannot execute get data from repo", traceHeader)
+		return models.DataRequest{}, err
 	}
-	return input, nil
+	return res, nil
 }

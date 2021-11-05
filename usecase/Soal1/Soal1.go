@@ -35,3 +35,5 @@ func (b UsecaseSoal1Struct) Soal1Func2(id string, traceHeader map[string]string)
 	}
 	return res, nil
 }
+
+//

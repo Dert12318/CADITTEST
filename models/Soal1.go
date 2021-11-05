@@ -1,7 +1,7 @@
 package models
 
 type TestRequest struct {
-	IDPartner      string `json:"_id"`
+	ID             string `json:"id"`
 	NamePartner    string `json:"name" validate:"required"`
 	ToDateTime     string `json:"username" validate:"required"`
 	EmailPartner   string `json:"email" validate:"required,email"`
@@ -12,12 +12,8 @@ type TestRequest struct {
 }
 
 type SalaryDataPrtnerStruct struct {
-	IDPartner     string `json:"id" validate:"required"`
-	SalaryPartner string `json:"salaryInIDR" validate:"required"`
-}
-
-type AccessData struct {
-	UrlSoal1 string `env:"URLSOURCESOAL1"`
+	IDPartnerSalary string `json:"id" `
+	SalaryPartner   string `json:"salaryInIDR" validate:"required"`
 }
 
 type AddressStruct struct {

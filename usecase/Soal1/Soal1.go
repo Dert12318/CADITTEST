@@ -1,4 +1,4 @@
-package usecaseTest
+package Soal1
 
 import (
 	"CadItTest/config/log"
@@ -16,12 +16,22 @@ func NewUsecaseSoal1Impl(testRepo repository.TestRepoInterface, log *log.LogCust
 	return &UsecaseSoal1Struct{testRepo, log}
 }
 
-func (b UsecaseSoal1Struct) Soal1Func(id string, traceHeader map[string]string) (models.DataRequest, error) {
+func (b UsecaseSoal1Struct) Soal1Func1(id string, traceHeader map[string]string) ([]models.TestRequest, error) {
 	url := "http://jsonplaceholder.typicode.com/users"
 	res, err := b.testRepo.GetDataAllPartner(url, traceHeader)
 	if err != nil {
-		b.log.Error(err, "usecase/Soal1: cannot execute get data from repo", traceHeader)
-		return models.DataRequest{}, err
+		b.log.Error(err, "usecase/Soal1: cnnot execute get data from repo", traceHeader)
+		return []models.TestRequest{}, err
+	}
+	return res, nil
+}
+func (b UsecaseSoal1Struct) Soal1Func2(id string, traceHeader map[string]string) ([]models.TestRequest, error) {
+	url := "http://jsonplacehoder.typicode.com/users"
+	urlku := url + "?id=" + id
+	res, err := b.testRepo.GetDataAllPartner(urlku, traceHeader)
+	if err != nil {
+		b.log.Error(err, "usecase/Soal1: cnnot execute get data from repo", traceHeader)
+		return []models.TestRequest{}, err
 	}
 	return res, nil
 }

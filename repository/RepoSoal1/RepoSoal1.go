@@ -4,6 +4,8 @@ import (
 	"CadItTest/config/log"
 	"CadItTest/models"
 	"CadItTest/repository"
+	"encoding/json"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
@@ -19,26 +21,23 @@ func NewConnectUrlImpl(log *log.LogCustom) repository.TestRepoInterface {
 	return &ConnectUrlStruct{log}
 }
 
-func (b ConnectUrlStruct) GetDataAllPartner(url string, traceHeader map[string]string) (models.DataRequest, error) {
+func (b ConnectUrlStruct) GetDataAllPartner(url string, traceHeader map[string]string) ([]models.TestRequest, error) {
 	//Get Data from URL
 	client := resty.New()
-	var data models.DataRequest
-	_, err := client.R().EnableTrace().SetResult(&data).Get(url)
+	var data []models.TestRequest
+	fmt.Println(url)
+	resp, err := client.R().EnableTrace().SetResult(&data).Get(url)
 	if err != nil {
 		b.log.Error(err, "Repo: cannot get data from url", traceHeader)
-		return models.DataRequest{}, err
+		return []models.TestRequest{}, err
+	}
+	//Unmarshal Data
+	result := resp.String()
+	fmt.Println(err, resp)
+	errs := json.Unmarshal([]byte(result), &data)
+	if errs != nil {
+		b.log.Error(err, "Repo: cannot unmarshal data", traceHeader)
+		return []models.TestRequest{}, err
 	}
 	return data, nil
 }
-
-// func (b ConnectUrlStruct) GetDataPartnerId(input models.AccessData, context *gin.Context, param id, traceHeader map[string]string) (models.DataRequest, error) {
-// 	//Get Data from URL
-// 	client := resty.New()
-// 	var data models.DataRequest
-// 	_, err := client.R().EnableTrace().SetResult(&data).Get(input.UrlSoal1)
-// 	if err != nil {
-// 		context.JSON(http.StatusBadRequest, "data error binding")
-// 		return models.DataRequest{},err
-// 	}
-// 	return data, nil
-// }

@@ -1,11 +1,7 @@
 package models
 
-type DataRequest struct {
-	Data []TestRequest
-}
-
 type TestRequest struct {
-	IDPartner      string `json:"id"`
+	IDPartner      string `json:"_id"`
 	NamePartner    string `json:"name" validate:"required"`
 	ToDateTime     string `json:"username" validate:"required"`
 	EmailPartner   string `json:"email" validate:"required,email"`

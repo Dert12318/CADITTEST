@@ -16,9 +16,8 @@ const (
 	ErrUnexpected = "Unknown error, check log for further info"
 )
 
-
 // header
 const (
-	HeaderReqID = "X-BRI-ReqId"
-	HeaderParentReqID = "X-BRI-Parent-ReqId"
+	HeaderReqID       = "CAD-IT-TEST"
+	HeaderParentReqID = "X-CADIT-TEST"
 )

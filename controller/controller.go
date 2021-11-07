@@ -3,7 +3,6 @@ package controller
 import (
 	"CadItTest/config/log"
 	"CadItTest/usecase"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -40,7 +39,12 @@ func (c TestController) Soal1Test(context *gin.Context) {
 	}
 }
 func (c TestController) Soal2Test(context *gin.Context) {
-	var id = context.Query("byDay")
+	var byDay = context.Query("byDay")
 	var roomArea = context.Query("roomArea")
-	fmt.Println(id, roomArea)
+	response, err2 := c.SoalUsecase.Soal2Func2(byDay, roomArea, nil)
+	if err2 != nil {
+		context.JSON(http.StatusBadRequest, "data error")
+		return
+	}
+	context.JSON(http.StatusOK, response)
 }

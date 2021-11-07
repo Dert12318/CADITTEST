@@ -18,13 +18,13 @@ func NewTestController(r *gin.RouterGroup, TestUsecase usecase.SoalUsecaseInterf
 	handler := TestController{TestUsecase, log}
 
 	r.GET("/AllPartner", handler.Soal1Test)
+	r.GET("/AgregateData", handler.Soal1Test)
 }
 
 func (c TestController) Soal1Test(context *gin.Context) {
 	var id = context.Query("id")
-	fmt.Println(id)
 	if id == "" {
-		response, err := c.SoalUsecase.Soal1Func1(id, nil)
+		response, err := c.SoalUsecase.Soal1Func1(nil)
 		if err != nil {
 			context.JSON(http.StatusBadRequest, "data error")
 			return
@@ -38,4 +38,9 @@ func (c TestController) Soal1Test(context *gin.Context) {
 		}
 		context.JSON(http.StatusOK, response2)
 	}
+}
+func (c TestController) Soal2Test(context *gin.Context) {
+	var id = context.Query("byDay")
+	var roomArea = context.Query("roomArea")
+	fmt.Println(id, roomArea)
 }

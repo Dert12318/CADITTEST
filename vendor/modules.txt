@@ -44,6 +44,9 @@ github.com/mattn/go-isatty
 github.com/modern-go/concurrent
 # github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
 github.com/modern-go/reflect2
+# github.com/montanaflynn/stats v0.6.6
+## explicit
+github.com/montanaflynn/stats
 # github.com/olivere/elastic/v7 v7.0.29
 ## explicit
 github.com/olivere/elastic/v7

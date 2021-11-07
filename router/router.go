@@ -4,8 +4,8 @@ import (
 	"CadItTest/config/env"
 	"CadItTest/config/log"
 	"CadItTest/controller"
-	repo1 "CadItTest/repository/RepoSoal1"
-	usecase1 "CadItTest/usecase/Soal1"
+	repo1 "CadItTest/repository/RepoSoal"
+	usecase1 "CadItTest/usecase/Soal"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +19,7 @@ func NewRouter() *gin.Engine {
 	// 	logger.Fatal(err, "router : init contract", nil)
 	// }
 
-	routerGroup := router.Group("CADIT/")
+	routerGroup := router.Group("/CADIT")
 	//repo
 	rp := repo1.NewConnectUrlImpl(logger)
 	//usecase
